@@ -1,10 +1,12 @@
 
-import java.net.InetAddress;
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 /**
  *
@@ -18,19 +20,20 @@ public class Main {
     public static void main(String[] args)
     throws Exception
     {
-	InetAddress localhost = InetAddress.getLocalHost();
-	System.out.println(info(localhost));
-	InetAddress[] ip = InetAddress.getAllByName(localhost.getHostName());
-	for (int i=0; i<ip.length; i++)
-	    System.out.println(info(ip[i]));
-    }
-
-    private static String info(InetAddress ia)
-    {
-	return "\n"+ia
-	+ "\nHostName="+ia.getHostName()
-	+ "\nCanonicalHostName="+ia.getCanonicalHostName()
-	+ "\nHostAddress="+ia.getHostAddress();
+	ServerSocket ss = new ServerSocket(8080, 80, InetAddress.getLocalHost());
+	System.out.println("Accepting: " + ss);
+	Socket s = ss.accept();
+	System.out.println(s);
+	InputStream is = s.getInputStream();
+	int c;
+	
+	while((c = is.read()) != -1)
+	{
+	    System.out.print((char)c);
+	}
+	is.close();
+	s.close();
+	ss.close();
     }
 
 }
