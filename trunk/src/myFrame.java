@@ -35,6 +35,7 @@ public class myFrame extends javax.swing.JFrame {
         serverStartButton = new javax.swing.JButton();
         logScrollPane = new javax.swing.JScrollPane();
         logTextArea = new javax.swing.JTextArea();
+        errorMessageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,19 +111,24 @@ public class myFrame extends javax.swing.JFrame {
             logTextArea.setRows(5);
             logScrollPane.setViewportView(logTextArea);
 
+            errorMessageLabel.setText("jLabel1");
+
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(topPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
             );
             layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(topPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(logScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+                    .addComponent(logScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(errorMessageLabel))
             );
 
             pack();
@@ -147,6 +153,7 @@ parent.doButton();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel codebaseLabel;
     private javax.swing.JTextField codebaseTextField;
+    private javax.swing.JLabel errorMessageLabel;
     private javax.swing.JComboBox hostComboBox;
     private javax.swing.JLabel hostLabel;
     private javax.swing.JScrollPane logScrollPane;

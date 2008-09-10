@@ -14,6 +14,7 @@ public class Server implements Runnable
     }
     public void stop() {
         running = false;
+        this.notify();
         System.out.println("=========================");
         System.out.println("Server Gestopt");
         System.out.println("=========================");
@@ -21,8 +22,13 @@ public class Server implements Runnable
     
 
     public void run() {
-        //while (running) {
+        try {
+            while (running) {
             
-        //}
+            }
+        }
+        catch (Exception e) {
+        System.out.println(e);
+        }
     }
 }
