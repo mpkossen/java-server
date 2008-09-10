@@ -5,6 +5,7 @@ import java.io.PrintStream;
 public class Control implements WindowListener, ActionListener, ItemListener
 {
     Server s;
+    Thread serverthread;
     myFrame frame;
     boolean serverrunning = false;
     public Control() throws Exception
@@ -17,11 +18,12 @@ public class Control implements WindowListener, ActionListener, ItemListener
     {
 	if (serverrunning) {
             frame.setButtonText("GESTOPT", Color.RED);
-            this.stop();
+            serverthread.notify();
             }
         else {
             frame.setButtonText("GESTART", Color.GREEN);
-            this.start();
+            serverthread = new Thread(s);
+            serverthread.start();
             }
         serverrunning = !serverrunning;
         }
