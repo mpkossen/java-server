@@ -1,6 +1,6 @@
+import javax.net.ServerSocketFactory;
 
-
-public class Server implements Runnable
+public class Server extends ServerSocket implements Runnable
 {
     boolean running = false;
     public Server(){ 
@@ -24,7 +24,7 @@ public class Server implements Runnable
     public void run() {
         try {
             while (running) {
-            
+		
             }
         }
         catch (Exception e) {
