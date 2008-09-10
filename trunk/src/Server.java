@@ -25,7 +25,7 @@ public class Server extends ServerSocket implements Runnable
     public void run() {
         try {
             while (running) {
-		
+		accept();
             }
         }
         catch (Exception e) {
