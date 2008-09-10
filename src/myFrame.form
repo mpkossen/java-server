@@ -31,9 +31,9 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="topPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="logScrollPane" min="-2" pref="294" max="-2" attributes="0"/>
+              <Component id="logScrollPane" min="-2" pref="289" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="errorMessageLabel" pref="14" max="32767" attributes="0"/>
+              <Component id="errorMessageLabel" pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
