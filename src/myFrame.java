@@ -11,6 +11,10 @@ public class myFrame extends javax.swing.JFrame {
     public void setText(String s) {
         logTextArea.append(s);
     }
+    public int getPort() {
+        return Integer.parseInt(portTextField.getText());
+    }
+    
     public void setButtonText(String s, Color c) {
         serverStartButton.setText(s);
         serverStartButton.setBackground(c);
