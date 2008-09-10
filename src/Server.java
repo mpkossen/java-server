@@ -1,5 +1,5 @@
 import java.io.IOException;
-import java.net.ServerSocket;
+import java.net.*;
 import java.net.InetAddress;
 
 public class Server extends ServerSocket implements Runnable
@@ -14,7 +14,9 @@ public class Server extends ServerSocket implements Runnable
         System.out.println("=========================");
             while (!Thread.interrupted()) {
                 try{
-		accept(); }
+		Socket s = accept(); 
+                
+                }
                 catch(Exception e){System.out.println(e);}
             }
         System.out.println("=========================");
