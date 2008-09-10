@@ -13,9 +13,6 @@ public class Control implements WindowListener, ActionListener, ItemListener
 	frame = new myFrame(this);
         System.setOut(new PrintStream(new myOutputStream(frame)));
     }
-    /*
-     * doButton() 
-     */
     public void doButton()
     {
 	if (serverrunning) {

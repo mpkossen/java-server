@@ -23,6 +23,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="topPanel" alignment="0" max="32767" attributes="0"/>
           <Component id="logScrollPane" alignment="0" pref="619" max="32767" attributes="0"/>
+          <Component id="errorMessageLabel" alignment="0" pref="619" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -30,7 +31,9 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="topPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="logScrollPane" pref="314" max="32767" attributes="0"/>
+              <Component id="logScrollPane" min="-2" pref="294" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="errorMessageLabel" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -148,5 +151,10 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="errorMessageLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel1"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
