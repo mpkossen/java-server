@@ -1,24 +1,19 @@
-/*
- * GUI_Frame.java
- *
- * Created on 3 september 2008, 15:42
- */
+import java.awt.*;
 
-
-
-/**
- *
- * @author  Bami
- */
 public class myFrame extends javax.swing.JFrame {
-
+    Control parent;
     /** Creates new form GUI_Frame */
-    public myFrame() {
+    public myFrame(Control c) {
+        parent = c;
         initComponents();
         this.setVisible(true);
     }
     public void setText(String s) {
         logTextArea.append(s);
+    }
+    public void setButtonText(String s, Color c) {
+        serverStartButton.setText(s);
+        serverStartButton.setBackground(c);
     }
 
     /** This method is called from within the constructor to
@@ -35,9 +30,9 @@ public class myFrame extends javax.swing.JFrame {
         hostComboBox = new javax.swing.JComboBox();
         portLabel = new javax.swing.JLabel();
         portTextField = new javax.swing.JTextField();
-        serverStartButton = new javax.swing.JToggleButton();
         codebaseLabel = new javax.swing.JLabel();
         codebaseTextField = new javax.swing.JTextField();
+        serverStartButton = new javax.swing.JButton();
         logScrollPane = new javax.swing.JScrollPane();
         logTextArea = new javax.swing.JTextArea();
 
@@ -56,20 +51,19 @@ public class myFrame extends javax.swing.JFrame {
 
         portTextField.setText("80");
 
-        serverStartButton.setBackground(new java.awt.Color(255, 0, 0));
-        serverStartButton.setText("GESTOPT");
-        serverStartButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                serverStartButtonActionPerformed(evt);
-            }
-        });
-
         codebaseLabel.setText("Codebase");
 
         codebaseTextField.setText("C:\\httpdocs\\");
             codebaseTextField.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     codebaseTextFieldActionPerformed(evt);
+                }
+            });
+
+            serverStartButton.setText("SERVER");
+            serverStartButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    serverStartButtonActionPerformed(evt);
                 }
             });
 
@@ -89,7 +83,7 @@ public class myFrame extends javax.swing.JFrame {
                     .addGap(18, 18, 18)
                     .addComponent(codebaseLabel)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(codebaseTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                    .addComponent(codebaseTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(serverStartButton)
                     .addContainerGap())
@@ -102,10 +96,10 @@ public class myFrame extends javax.swing.JFrame {
                         .addComponent(hostComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(portLabel)
                         .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(serverStartButton)
                         .addComponent(codebaseLabel)
-                        .addComponent(codebaseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(hostLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(hostLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(serverStartButton)
+                        .addComponent(codebaseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(19, Short.MAX_VALUE))
             );
 
@@ -138,13 +132,13 @@ public class myFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_hostComboBoxActionPerformed
 
-private void serverStartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serverStartButtonActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_serverStartButtonActionPerformed
-
 private void codebaseTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codebaseTextFieldActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_codebaseTextFieldActionPerformed
+
+private void serverStartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serverStartButtonActionPerformed
+parent.doButton();
+}//GEN-LAST:event_serverStartButtonActionPerformed
 
     /**
     * @param args the command line arguments
@@ -159,7 +153,7 @@ private void codebaseTextFieldActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JTextArea logTextArea;
     private javax.swing.JLabel portLabel;
     private javax.swing.JTextField portTextField;
-    private javax.swing.JToggleButton serverStartButton;
+    private javax.swing.JButton serverStartButton;
     private javax.swing.JPanel topPanel;
     // End of variables declaration//GEN-END:variables
 
