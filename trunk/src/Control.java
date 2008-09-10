@@ -1,19 +1,33 @@
 import java.awt.event.*;
+import java.awt.Color;
+import java.io.PrintStream;
 
 public class Control implements WindowListener, ActionListener, ItemListener
 {
+    Server s;
+    myFrame frame;
+    boolean serverrunning = false;
     public Control() throws Exception
     {
-	Server s = new Server();
-	myFrame frame = new myFrame();
+	s = new Server();
+	frame = new myFrame(this);
+        System.setOut(new PrintStream(new myOutputStream(frame)));
     }
     /*
      * doButton() 
      */
     public void doButton()
     {
-	
-    }
+	if (serverrunning) {
+            frame.setButtonText("GESTOPT", Color.RED);
+            this.stop();
+            }
+        else {
+            frame.setButtonText("GESTART", Color.GREEN);
+            this.start();
+            }
+        serverrunning = !serverrunning;
+        }
     
     /*
      * doChoice() 
@@ -36,7 +50,7 @@ public class Control implements WindowListener, ActionListener, ItemListener
      */
     public void start()
     {
-	
+	s.start();
     }
     
     /*
@@ -44,7 +58,7 @@ public class Control implements WindowListener, ActionListener, ItemListener
      */
     public void stop()
     {
-	
+	s.stop();
     }
     
     /*

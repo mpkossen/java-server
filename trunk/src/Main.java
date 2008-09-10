@@ -4,8 +4,12 @@ class Main
 { 
   public static void main(String[] args)
   { 
-    myFrame myFrame = new myFrame();
-    System.setOut(new PrintStream(new myOutputStream(myFrame)));
+    try {
+        Control c = new Control();
+    }
+    catch (Exception e) {
+        System.out.println(e);
+    }
     
   }
 }
