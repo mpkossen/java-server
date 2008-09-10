@@ -1,9 +1,10 @@
-import javax.net.ServerSocketFactory;
+import java.io.IOException;
+import java.net.ServerSocket;
 
 public class Server extends ServerSocket implements Runnable
 {
     boolean running = false;
-    public Server(){ 
+    public Server() throws IOException{ 
     }
     public void start() {
         running = true;
