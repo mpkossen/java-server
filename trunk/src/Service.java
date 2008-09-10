@@ -9,11 +9,14 @@
  */
 public class Service extends Thread 
 {
-    public Service()
+    public Server s;
+    public Response rs;
+    public Request rq;
+    public Servlet sl;
+    
+    public Service(Server s)
     {
-	Response rs;
-	Request rq;
-	Servlet sl;
+	this.s = s;
 	rs = new Response();
 	rq = new Request();
 	sl = new Servlet();
