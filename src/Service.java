@@ -9,5 +9,18 @@
  */
 public class Service extends Thread 
 {
-
+    public Service()
+    {
+	Response rs;
+	Request rq;
+	Servlet sl;
+	rs = new Response();
+	rq = new Request();
+	sl = new Servlet();
+    }
+    
+    public void run()
+    {
+	
+    }
 }

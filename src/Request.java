@@ -9,5 +9,28 @@
  */
 public class Request
 {
-
+    public Request()
+    {
+	
+    }
+    
+    public void getMETHOD()
+    {
+	
+    }
+    
+    public void getURI()
+    {
+	
+    }
+    
+    public void getVERSION()
+    {
+	
+    }
+    
+    public void getDATA()
+    {
+	
+    }
 }

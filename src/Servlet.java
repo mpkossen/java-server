@@ -9,5 +9,13 @@
  */
 public class Servlet 
 {
-
+    public Servlet()
+    {
+	
+    }
+    
+    public void doGET()
+    {
+	
+    }
 }

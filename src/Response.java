@@ -9,5 +9,28 @@
  */
 public class Response 
 {
-
+    public Response()
+    {
+	
+    }
+    
+    public void setCODE()
+    {
+	
+    }
+    
+    public void setREASON()
+    {
+	
+    }
+    
+    public void setBYTES()
+    {
+	
+    }
+    
+    public void send()
+    {
+	
+    }
 }
