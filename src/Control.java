@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.awt.event.*;
 
 public class Control implements WindowListener, ActionListener, ItemListener
@@ -9,10 +5,8 @@ public class Control implements WindowListener, ActionListener, ItemListener
     public Control() throws Exception
     {
 	Server s = new Server();
-	GUI_Frame frame = new GUI_Frame();
-	myOutputStream os = new myOutputStream();
+	myFrame frame = new myFrame();
     }
-    
     /*
      * doButton() 
      */
