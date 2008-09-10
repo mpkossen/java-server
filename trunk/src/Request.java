@@ -7,7 +7,7 @@
  *
  * @author mistermartin75
  */
-public class Request 
+public class Request
 {
 
 }
