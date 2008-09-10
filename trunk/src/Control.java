@@ -1,6 +1,7 @@
 import java.awt.event.*;
 import java.awt.Color;
 import java.io.PrintStream;
+import java.io.*;
 
 public class Control implements WindowListener, ActionListener, ItemListener
 {
@@ -10,7 +11,6 @@ public class Control implements WindowListener, ActionListener, ItemListener
     boolean serverrunning = false;
     public Control() throws Exception
     {
-	s = new Server();
 	frame = new myFrame(this);
         System.setOut(new PrintStream(new myOutputStream(frame)));
     }
@@ -18,12 +18,19 @@ public class Control implements WindowListener, ActionListener, ItemListener
     {
 	if (serverrunning) {
             frame.setButtonText("GESTOPT", Color.RED);
-            serverthread.notify();
+            serverthread.interrupt();
+            serverthread = null;
             }
         else {
-            frame.setButtonText("GESTART", Color.GREEN);
-            serverthread = new Thread(s);
+            
+            try {
+            serverthread = new Thread(new Server(frame.getPort()));
             serverthread.start();
+            frame.setButtonText("GESTART", Color.GREEN);
+                }
+            catch(IOException e) {
+                System.out.println(e);
+            }
             }
         serverrunning = !serverrunning;
         }
@@ -49,7 +56,6 @@ public class Control implements WindowListener, ActionListener, ItemListener
      */
     public void start()
     {
-	s.start();
     }
     
     /*
@@ -57,7 +63,7 @@ public class Control implements WindowListener, ActionListener, ItemListener
      */
     public void stop()
     {
-	s.stop();
+
     }
     
     /*
