@@ -2,78 +2,77 @@ package server;
 
 import java.awt.event.*;
 import java.awt.Color;
-import java.io.PrintStream;
 import java.io.*;
 
-public class Control implements WindowListener, ActionListener, ItemListener
-{
+public class Control implements WindowListener, ActionListener, ItemListener {
+
     Server s;
     Thread serverthread;
     myFrame frame;
-    boolean serverrunning = false;
-    public Control() throws Exception
-    {
+    public boolean serverrunning = false;
+
+    public Control() throws Exception {
 	frame = new myFrame(this);
-        System.setOut(new PrintStream(new myOutputStream(frame)));
+
+	System.setOut(new PrintStream(new myOutputStream(frame)));
     }
-    public void doButton()
-    {
+
+    public void doButton() {
 	if (serverrunning) {
-            frame.setButtonText("GESTOPT", Color.RED);
-            serverthread.interrupt();
-            serverthread = null;
-            }
-        else {
-            
-            try {
-            serverthread = new Thread(new Server(frame.getPort()));
-            serverthread.start();
-            frame.setButtonText("GESTART", Color.GREEN);
-                }
-            catch(IOException e) {
-                System.out.println(e);
-            }
-            }
-        serverrunning = !serverrunning;
-        }
-    
+
+	    try {
+		s.close();
+		s = null;
+		frame.setButtonText("GESTOPT", Color.RED);
+		serverrunning = !serverrunning;
+		serverthread = null;
+	    } catch (IOException ex) {
+		System.out.println(ex);
+	    }
+
+	} else {
+	    try {
+		s = new Server(this,frame.getCurrentlySelectedAdapter(), 80);
+		serverthread = new Thread(s);
+		serverthread.start();
+		frame.setButtonText("GESTART", Color.GREEN);
+		serverrunning = !serverrunning;
+	    } catch (IOException ex) {
+		System.out.println(ex);
+	    }
+	}
+
+
+    }
+
     /*
      * doChoice() 
      */
-    public void doChoice()
-    {
-	
+    public void doChoice() {
     }
-    
+
     /*
      * doTextField() 
      */
-    public void doTextField()
-    {
-	
+    public void doTextField() {
     }
-    
+
     /*
      * start() 
      */
-    public void start()
-    {
+    public void start() {
     }
-    
+
     /*
      * stop() 
      */
-    public void stop()
-    {
-
+    public void stop() {
     }
-    
+
     /*
      * restart() 
      */
-    public void restart()
-    {
-	
+    public void restart() {
     }
 
     public void windowOpened(WindowEvent arg0) {
@@ -111,5 +110,4 @@ public class Control implements WindowListener, ActionListener, ItemListener
     public void itemStateChanged(ItemEvent arg0) {
 	throw new UnsupportedOperationException("Not supported yet.");
     }
-    
 }
