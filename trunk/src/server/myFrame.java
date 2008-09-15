@@ -1,17 +1,40 @@
 package server;
 
 import java.awt.*;
+import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class myFrame extends javax.swing.JFrame {
     Control parent;
+    InetAddress[] all;
     /** Creates new form GUI_Frame */
     public myFrame(Control c) {
-        parent = c;
-        initComponents();
-        this.setVisible(true);
+	 parent = c;
+	    initComponents();
+	    this.setVisible(true);
+	try {
+	   
+	    InetAddress in = InetAddress.getLocalHost();
+	    all = InetAddress.getAllByName(in.getHostName());
+	    String[] allStrings = new String[all.length];
+	    for (int i=0; i<all.length; i++) {
+		allStrings[i] = all[i].toString();
+		}
+
+	    hostComboBox.setModel(new javax.swing.DefaultComboBoxModel(allStrings));
+	} catch (UnknownHostException ex) {
+	    Logger.getLogger(myFrame.class.getName()).log(Level.SEVERE, null, ex);
+	}
+    }
+    
+    public InetAddress getCurrentlySelectedAdapter() {
+	return all[hostComboBox.getSelectedIndex()];
     }
     public void setText(String s) {
         logTextArea.append(s);
+	logScrollPane.getVerticalScrollBar().setValue(logScrollPane.getVerticalScrollBar().getMaximum());
+
     }
     public int getPort() {
         return Integer.parseInt(portTextField.getText());
@@ -39,15 +62,15 @@ public class myFrame extends javax.swing.JFrame {
         codebaseLabel = new javax.swing.JLabel();
         codebaseTextField = new javax.swing.JTextField();
         serverStartButton = new javax.swing.JButton();
+        errorMessageLabel = new javax.swing.JLabel();
         logScrollPane = new javax.swing.JScrollPane();
         logTextArea = new javax.swing.JTextArea();
-        errorMessageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         hostLabel.setText("Host");
 
-        hostComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "127.0.0.1", "10.0.0.2" }));
+        hostComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "127.0.0.1" }));
         hostComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hostComboBoxActionPerformed(evt);
@@ -82,15 +105,15 @@ public class myFrame extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(hostLabel)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(hostComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
+                    .addComponent(hostComboBox, 0, 204, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(portLabel)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(codebaseLabel)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(codebaseTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                    .addComponent(codebaseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(serverStartButton)
                     .addContainerGap())
@@ -100,39 +123,41 @@ public class myFrame extends javax.swing.JFrame {
                 .addGroup(topPanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(hostComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(portLabel)
-                        .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(codebaseLabel)
                         .addComponent(hostLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(serverStartButton)
-                        .addComponent(codebaseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(codebaseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(codebaseLabel)
+                        .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(portLabel)
+                        .addComponent(hostComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
 
-            logScrollPane.setBackground(new java.awt.Color(255, 255, 255));
-            logScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
             logTextArea.setColumns(20);
+            logTextArea.setEditable(false);
             logTextArea.setRows(5);
+            logTextArea.setPreferredSize(null);
             logScrollPane.setViewportView(logTextArea);
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
                 .addComponent(topPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
-                .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(logScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE))
             );
             layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addComponent(topPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(logScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 305, Short.MAX_VALUE)
+                    .addComponent(errorMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(54, Short.MAX_VALUE)
+                        .addComponent(logScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)))
             );
 
             pack();
