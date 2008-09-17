@@ -6,9 +6,14 @@ import java.util.*;
 
 public class Service implements Runnable {
     final static String CRLF ="\r\n";
+    final static String HTTPVERSION = "HTTP/1.0";
     Socket socket;
-    public Service(Socket socket) {
+    String path;
+    public Service(Socket socket,String accessiblepath) {
     this.socket = socket;
+    this.path = accessiblepath;
+    path = path.replaceAll("\\\\+", "/");
+    
     }
 public void run() {
         try {
@@ -23,25 +28,53 @@ private void processRequest() throws Exception {
         
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         
-	Vector<String> crap = new Vector<String>();
+	Vector<String> clientrequest = new Vector<String>();
 	String s = br.readLine();
 	while(!s.isEmpty()) {
-	    crap.add(s);
+	    clientrequest.add(s);
 	    System.out.println("\t"+s);
 	    s = br.readLine();
 	}
-	
-	String requestLine = crap.elementAt(0);
-
+	int statusNummer = 400;
 	String statusLine = "HTTP/1.0 1337 Nigger Not Found" + CRLF; 
-        String contentTypeLine = "NONE";
-        String entityBody = "\n\n nigger nigger";
+        String contentTypeLine = "";
+        String entityBody = "";
+	String filename = "";
+	
+	for(int i=0;i<clientrequest.size();i++) {
+	    if (clientrequest.elementAt(i).contains("GET")) {
+		filename = path+clientrequest.elementAt(i).split(" ")[1];
+		filename = filename.replaceAll("/+", "/");
+		if (filename.endsWith("/")) {
+		    filename += "index.html";
+		}
+		statusNummer = 200;
+		System.out.println("GET request: bestand "+filename);
+		File f = new File(filename);
+		if (!f.exists()) {
+		    statusNummer = 404;
+		}
+	    }
+	    
+	}
+	
+	
+	String requestLine = clientrequest.elementAt(0);
+
+	switch (statusNummer) {
+	    case 200: statusLine = HTTPVERSION+" 200 OK";break;
+	    case 404: statusLine = HTTPVERSION+" 404 File Not Found";break;
+	    default: statusLine = HTTPVERSION+" 400 Bad Request";break;
+	}
+
         
+	String returncrap = statusLine+contentTypeLine+entityBody;
         // Send the status line.
-        os.writeBytes(statusLine);
+        os.writeBytes(returncrap);
+	System.out.println("Response:\n\t"+statusLine+"\t"+contentTypeLine+"\t"+entityBody);
         
         // Send the content type line.
-        os.writeBytes(contentTypeLine);
+       // os.writeBytes(contentTypeLine);
         
         // Send a blank line to indicate the end of the header lines.
         os.writeBytes(CRLF);
