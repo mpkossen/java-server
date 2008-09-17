@@ -18,7 +18,8 @@ public class myFrame extends javax.swing.JFrame {
 	    InetAddress in = InetAddress.getLocalHost();
 	    all = InetAddress.getAllByName(in.getHostName());
 	    String[] allStrings = new String[all.length];
-	    for (int i=0; i<all.length; i++) {
+	    int i;
+	    for (i=0; i<all.length; i++) {
 		allStrings[i] = all[i].toString();
 		}
 
@@ -31,6 +32,10 @@ public class myFrame extends javax.swing.JFrame {
     public InetAddress getCurrentlySelectedAdapter() {
 	return all[hostComboBox.getSelectedIndex()];
     }
+    public String getCodePath() {
+	return codebaseTextField.getText();
+    }
+    
     public void setText(String s) {
         logTextArea.append(s);
 	logScrollPane.getVerticalScrollBar().setValue(logScrollPane.getVerticalScrollBar().getMaximum());
@@ -135,8 +140,8 @@ public class myFrame extends javax.swing.JFrame {
 
             logTextArea.setColumns(20);
             logTextArea.setEditable(false);
+            logTextArea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
             logTextArea.setRows(5);
-            logTextArea.setPreferredSize(null);
             logScrollPane.setViewportView(logTextArea);
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

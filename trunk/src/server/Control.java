@@ -32,7 +32,7 @@ public class Control implements WindowListener, ActionListener, ItemListener {
 
 	} else {
 	    try {
-		s = new Server(this,frame.getCurrentlySelectedAdapter(), 80);
+		s = new Server(this,frame.getCurrentlySelectedAdapter(), frame.getPort(),frame.getCodePath() );
 		serverthread = new Thread(s);
 		serverthread.start();
 		frame.setButtonText("GESTART", Color.GREEN);
